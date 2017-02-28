@@ -1,0 +1,19 @@
+{
+  "name": "booking.node",
+  "version": "1.0.0",
+  "description": "Projet IMIE réservations hotels avec node.js",
+  "main": "app/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/berthethomas/booking.node.git"
+  },
+  "author": "IMIE",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/berthethomas/booking.node/issues"
+  },
+  "homepage": "https://github.com/berthethomas/booking.node#readme"
+}
