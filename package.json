@@ -15,5 +15,14 @@
   "bugs": {
     "url": "https://github.com/berthethomas/booking.node/issues"
   },
-  "homepage": "https://github.com/berthethomas/booking.node#readme"
+  "homepage": "https://github.com/berthethomas/booking.node#readme",
+  "dependencies": {
+    "csv": "^1.1.1",
+    "express": "^4.14.1",
+    "http": "0.0.0",
+    "jquery": "^3.1.1",
+    "mongodb": "^2.2.24",
+    "morgan": "^1.8.1",
+    "nodemailer": "^3.1.4"
+  }
 }
