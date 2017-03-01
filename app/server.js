@@ -20,10 +20,9 @@ app.set('views', path.join(__dirname + '/views'));
 app.set('view engine', 'hbs');
 
 //routes
-app.use('/', login)
+app.use('/', authenticate)
 .use('/register', register)
-.use('/logement', logement)
-.use('/authenticate', authenticate);
+.use('/logement', logement);
 
 
 //public files

@@ -1,16 +1,24 @@
-var express  = require('express'),
-    router   = express.Router(),
-    userModel = require('../models/users');
+var express = require('express'),
+    router  = express.Router(),
+    User    = require('../models/user');
 
+router.get('/', function(req, res, next) {
+	res.render('login', {title: 'Se connecter'});
+})
+router.post('/check', function(req, res, next) {
+	var user = new User();
 
-router.post('/', function(req, res, next) {
-    var credentials = {
-        email: req.body.email,
-        password: req.body.password
-    };
-    console.log(userModel)
-    var t = userModel.login(credentials);
-    console.log(t);
+	user.email = req.body.email;
+	user.password = req.body.password;
+
+	var checkLogin = user.login();
+    console.log(user);
+
+	if (checkLogin) {
+		res.redirect('/logement');
+	} else {
+		res.redirect('/');
+	}
 
 });
 
