@@ -9,7 +9,6 @@ var login    = require('./controllers/login'),
 	logement = require('./controllers/logement'),
 	authenticate = require('./controllers/authenticate');
 
-
 //application
 var	app = express();
 
