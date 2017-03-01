@@ -20,10 +20,17 @@
     "bootstrap": "^3.3.7",
     "csv": "^1.1.1",
     "express": "^4.14.1",
+    "font-awesome": "^4.7.0",
+    "gulp": "^3.9.1",
+    "hbs": "^4.0.1",
+    "html": "^1.0.0",
     "http": "0.0.0",
     "jquery": "^3.1.1",
     "mongodb": "^2.2.24",
     "morgan": "^1.8.1",
-    "nodemailer": "^3.1.4"
+    "nodemailer": "^3.1.4",
+    "path": "^0.12.7",
+    "pug": "^2.0.0-beta11",
+    "serve-static": "^1.12.0"
   }
 }
