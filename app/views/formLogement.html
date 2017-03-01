@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../login.css">
+    <title>Document</title>
+</head>
+<body>
+<div class="container">
+    <div class="row main">
+        <div class="main-login main-center">
+            <h3>Ajout d'un logement</h3>
+            <form class="" method="post" action="#">
+
+                <div class="form-group">
+                    <label for="title" class="cols-sm-2 control-label">Titre</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="title" id="title"  placeholder="Titre"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description" class="cols-sm-2 control-label">Description</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-id-card-o fa-lg" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="description" id="description"  placeholder="Description"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="exampleInputFile">Ajouter une photo</label>
+                  <input type="file" class="form-control" id="image" aria-describedby="fileHelp">
+                </div>
+
+                <div class="form-group">
+                      <label for="email" class="cols-sm-2 control-label">Email</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-envelope-o fa-lg" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="email" id="email"  placeholder="Email"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                      <label for="adresse" class="cols-sm-2 control-label">Adresse</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="adresse" id="adresse"  placeholder="Adresse"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                      <label for="cp" class="cols-sm-2 control-label">Code Postal</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="cp" id="cp"  placeholder="Code postal"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                      <label for="ville" class="cols-sm-2 control-label">Ville</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="ville" id="ville"  placeholder="Ville"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                      <label for="prix" class="cols-sm-2 control-label">Tarif à la semaine</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-euro fa-lg" aria-hidden="true"></i></span>
+                            <input type="number" class="form-control" name="prix" id="prix"  placeholder="Prix"/>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
