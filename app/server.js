@@ -6,7 +6,9 @@ var express  = require('express'),
 //controllers
 var login    = require('./controllers/login'),
 	register = require('./controllers/register'),
-	logement = require('./controllers/logement');
+	logement = require('./controllers/logement'),
+	authenticate = require('./controllers/authenticate');
+
 
 //application
 var	app = express();
@@ -21,7 +23,9 @@ app.set('view engine', 'hbs');
 //routes
 app.use('/', login)
 .use('/register', register)
-.use('/logement', logement);
+.use('/logement', logement)
+.use('/authenticate', authenticate);
+
 
 //public files
 app.use(express.static(path.join(__dirname, '/../public')));
