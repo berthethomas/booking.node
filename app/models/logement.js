@@ -17,7 +17,7 @@ module.exports = {
     });
   },
 
-  findById : function(id) {
+  findById : function(id, callback) {
     MongoClient.connect('mongodb://localhost/booking', function(err, db) {
       if (err) {
         return console.log(err);
@@ -29,7 +29,8 @@ module.exports = {
 
       collection.findOne({_id:obj_id}, function(err, item) {
         //console.log(item);
-        return item;
+        //return item;
+        callback(item);
       });
 
     });
@@ -74,7 +75,7 @@ module.exports = {
         tarif : formLogement["tarif"]
       };
 
-      collection.save({logement}, {w : 1}, function(err, result) {});
+      collection.save(logement, {w : 1}, function(err, result) {});
     });
   },
 
