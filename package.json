@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/berthethomas/booking.node#readme",
   "dependencies": {
+    "body-parser": "^1.16.1",
     "bootstrap": "^3.3.7",
     "csv": "^1.1.1",
     "express": "^4.14.1",
