@@ -1,16 +1,25 @@
 var MongoClient = require('mongodb').MongoClient;
 
 function User() {
-	this.name = '';
-	this.firstname = '';
-	this.email = '';
-	this.password = '';
+	this._id       = null;
+	this.name      = null;
+	this.firstname = null;
+	this.email     = null;
+	this.password  = null;
+	this.admin     = false;
 };
 User.prototype = {
-
+	init: function (obj)
+	{
+		for (var fld in obj) {
+			if (obj.hasOwnProperty(fld)) {
+				this[fld] = obj[fld];
+			}
+		}
+	},
     login: function(callback)
 	{
-		var user = this;
+		var object = this;
 
         MongoClient.connect('mongodb://localhost/booking', function(err, db) {
 
@@ -21,21 +30,17 @@ User.prototype = {
             var users = db.collection('users');
 
             users.findOne({email:user.email, password:user.password}, function(err, item) {
-				var response = {success: false, user: {}}
+				var user = {}
 
-                if (! err) {
-					response.success = true;
+                if (! err && item) {
 
-					if (item) {
-						console.log(item);
-						user.name      = item.name;
-						user.firstname = item.firstname;
+					object.name      = item.name;
+					object.firstname = item.firstname;
 
-						response.user = user;
-					}
+					user = object;
 				}
 
-				callback(response);
+				callback(user, err);
             });
 
         });
