@@ -1,6 +1,6 @@
 <div class="container">
     <div class="page-header">
-        <h1>Réserver votre location d'hotel sur Booking.node :)</h1>
+        <h1>Réserver votre location d'hotel sur Booking.node <i class="fa fa-smile-o fa-3x" aria-hidden="true"></i></h1>
     </div>
     <div class="row">
     	<div class="col-md-12">
@@ -12,10 +12,15 @@
                         </ul>
                 </div>
                 <div class="panel-body">
+                    <a class="btn btn-success" href="/logement/add">
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i> Ajouter
+                    </a>
+                    <br><br>
                     <div class="tab-content">
                         <div class="tab-pane fade in active" id="tableView">
                           <table class="table tablesorter">
                             <thead>
+                                <th></th>
                               <th>Titre</th>
                               <th>Adresse</th>
                               <th>Ville</th>
@@ -25,17 +30,37 @@
                             <tbody>
                               {{#each logements}}
                               <tr>
+                                  <td><!--<img src="/public/img/{{image}}" title="{{titre}}" alt="{{titre}}"/>--></td>
                                 <td>{{titre}}</td>
                                 <td>{{adresse}}</td>
                                 <td>{{ville}}</td>
                                 <td>{{tarif}} €</td>
-                                <td></td>
+                                <td>
+                                    <a class="btn btn-default" href="/logement/info/{{_id}}">
+                                        Voir
+                                    </a>
+
+                                    <div class="dropdown">
+                                      <button class="btn btn-default dropdown-toggle" type="button" id="option{{_id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        Options
+                                        <span class="caret"></span>
+                                      </button>
+                                      <ul class="dropdown-menu" aria-labelledby="option{{_id}}">
+                                        <li><a href="/logement/update/{{_id}}">Modifier</a></li>
+                                        <li><a href="/logement/delete/{{_id}}">Supprimer</a></li>
+                                        <li><a href="/logement/info/{{_id}}">Afficher</a></li>
+                                      </ul>
+                                    </div>
+                                </td>
                               </tr>
                             {{/each}}
                             </tbody>
                           </table>
                     </div>
-                        <div class="tab-pane fade" id="googleView">Maps</div>
+                        <div class="tab-pane fade" id="googleView">
+                            hello
+                            <div id="map" style="width:400px;"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -43,19 +68,63 @@
 	</div>
 </div>
 
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWlyWQJbbr1CKhODngQif59P3oMt7zlPQ"></script>
 <script>
+var directionsDisplay;
+var directionsService = new google.maps.DirectionsService();
+var map;
+
+function initialize(dep, arr) {
+    directionsDisplay = new google.maps.DirectionsRenderer();
+    var paris = new google.maps.LatLng(48.8534100, 2.3488000);
+    var mapOptions = {
+        zoom: 5,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        center: paris
+    }
+    map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    directionsDisplay.setMap(map);
+
+    calcRoute1(dep, arr);
+}
+
+function calcRoute1(dep, arr) {
+    var start = dep;
+    var end = arr;
+
+
+    var request = {
+        origin: start,
+        destination: end,
+        provideRouteAlternatives: true,
+        travelMode: google.maps.TravelMode.DRIVING
+    };
+    directionsService.route(request, function (result, status, distance) {
+        if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(result);
+
+        }
+    });
+}
+
 $(document).ready(function() {
   $('.tablesorter').tablesorter({
-    //theme: "bootstrap",
-    //widthFixed: true,
-    //headerTemplate: '{content} {icon}',
-    //widgets: ["uitheme", "filter", "zebra"],
-    //widgetOptions: {
-        //zebra: ["even", "odd"],
-        //filter_reset: ".reset",
-        //filter_cssFilter: "form-control"
+    theme: "bootstrap",
+    widthFixed: true,
+    headerTemplate: '{content} {icon}',
+    widgets: ["uitheme", "filter", "zebra", "scroller"],
+    widgetOptions: {
+        zebra: ["even", "odd"],
+        filter_reset: ".reset",
+        filter_cssFilter: "form-control",
+        scroller_height : 400,
+        scroller_upAfterSort: true,
+        scroller_jumpToHeader: true,
+        scroller_barWidth : null
 
-    //}
+    }
   });
+
+  initialize("LE MANS", 'PARIS');
 });
 </script>
