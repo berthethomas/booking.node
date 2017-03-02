@@ -21,13 +21,13 @@ User.prototype = {
             var users = db.collection('users');
 
             users.findOne({email:user.email, password:user.password}, function(err, item) {
-				var response = {success: false, user: {}}
+				var response = {success: false, user: {}};
 
                 if (! err) {
 					response.success = true;
 
 					if (item) {
-						console.log(item);
+
 						user.name      = item.name;
 						user.firstname = item.firstname;
 
