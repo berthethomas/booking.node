@@ -36,7 +36,7 @@ app.use(flash());
 app.all('*',function(req, res, next){
 	var session = req.session;
 
-	if(session.auth || /^\/static/.test(req.url) || req.url == '/' ||  req.url == '/register' || req.url == '/check') {
+	if(session.auth || /^\/assets/.test(req.url) || req.url == '/' ||  req.url == '/register' || req.url == '/check') {
 		next();
     } else {
         res.redirect('/')

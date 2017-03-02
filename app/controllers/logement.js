@@ -4,19 +4,24 @@ var express  = require('express'),
 
 //affiche la map avec tout les hotels
 router.get('/map', function(req, res, next) {
+	var session = req.session;
 	Logement.findAll(function(logements){
-		res.render('map', {logements:logements});
+		res.render('map', {logements:logements, session:session});
 	});
 })
 router.get('/', function(req, res, next) {
 	var session = req.session;
+
 	Logement.findAll(function(logements){
-		res.render('index', {logements:logements, session:session.auth});
+		console.log(session);
+		var user = session.user;
+		res.render('index', {logements:logements, user:user, session:session});
 	});
 })
 //affiche le formulaire
 router.get('/add', function(req, res, next) {
-	res.render('formLogement', {title: 'Ajouter un logement', action: '/logement/add/save'});
+	var session = req.session;
+	res.render('formLogement', {title: 'Ajouter un logement', action: '/logement/add/save', session:session});
 })
 //enregistre les données
 .post('/add/save', function(req, res, next) {
@@ -84,15 +89,17 @@ router.get('/add', function(req, res, next) {
 })
 
 .get('/info/:id', function(req, res, next) {
+	var session = req.session;
 	Logement.findById(req.params.id, function(logement){
-		res.render('detailLogement', {title: 'Info sur le logement', logement:logement});
+		res.render('detailLogement', {title: 'Info sur le logement', logement:logement, session:session});
 	});
 
 })
 
 .get('/update/:id', function(req, res, next){
+	var session = req.session;
 	Logement.findById(req.params.id, function(logement){
-		res.render('updateLogement', {title: 'Modification du logement', logement:logement, action: '/logement/update/save'});
+		res.render('updateLogement', {title: 'Modification du logement', logement:logement, action: '/logement/update/save', session:session});
 	})
 })
 

@@ -4,6 +4,10 @@
     </div>
     <div class="row">
     	<div class="col-md-12">
+            {{#if user.admin}}
+                <a href="/logement/add" class="btn btn-success"><i class="fa fa-plus-circle" aria-expanded="true"></i> Ajouter</a>
+                <br><br>
+            {{/if}}
             <table class="table tablesorter">
               <thead>
                   <th></th>
@@ -17,26 +21,28 @@
                 {{#each logements}}
                 <tr>
                     <td><!--<img src="/public/img/{{image}}" title="{{titre}}" alt="{{titre}}"/>--></td>
-                    <td>{{titre}}</td>
-                    <td>{{adresse}}</td>
-                    <td>{{ville}}</td>
-                    <td>{{tarif}} €</td>
+                    <td>{{this.titre}}</td>
+                    <td>{{this.adresse}}</td>
+                    <td>{{this.ville}}</td>
+                    <td>{{this.tarif}} €</td>
                     <td>
-                      <a class="btn btn-default" href="/logement/info/{{_id}}">
-                          Voir
-                      </a>
-
-                      <div class="dropdown">
-                        <button class="btn btn-default dropdown-toggle" type="button" id="option{{_id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                          Options
-                          <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="option{{_id}}">
-                          <li><a href="/logement/update/{{_id}}">Modifier</a></li>
-                          <li><a href="/logement/delete/{{_id}}">Supprimer</a></li>
-                          <li><a href="/logement/info/{{_id}}">Afficher</a></li>
-                        </ul>
-                      </div>
+                        {{#if ../user.admin}}
+                          <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle center-block" type="button" id="option{{this._id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                              Options
+                              <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="option{{_id}}">
+                              <li><a href="/logement/update/{{this._id}}">Modifier</a></li>
+                              <li><a href="/logement/delete/{{this._id}}">Supprimer</a></li>
+                              <li><a href="/logement/info/{{this._id}}">Afficher</a></li>
+                            </ul>
+                          </div>
+                        {{else}}
+                        <a class="btn btn-primary center-block" href="/logement/info/{{this._id}}">
+                            Voir
+                        </a>
+                    {{/if}}
                   </td>
                 </tr>
               {{/each}}

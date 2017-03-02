@@ -17,6 +17,7 @@ router.post('/check', function(req, res, next) {
                 var session = req.session;
                 session.auth = true;
                 session.user = user;
+                session.admin = user.admin;
                 req.flash('success', 'Bienvenue, vous êtes connecté');
                 res.redirect('/logement');
 			} else {
