@@ -2,6 +2,12 @@ var express  = require('express'),
 	router   = express.Router(),
   model = require('../models/logement');
 
+//affiche la map avec tout les hotels
+router.get('/', function(req, res, next) {
+  model.findAll(function(logements){
+		res.render('index', {logements:logements});
+	});
+})
 //affiche le formulaire
 router.get('/add', function(req, res, next) {
 	res.render('formLogement', {title: 'Ajouter un logement', action: '/logement/add/save'});

@@ -9,4 +9,10 @@ gulp.task('default', function() {
 
 	gulp.src('./node_modules/font-awesome/fonts/*')
 	.pipe(gulp.dest('./public/fonts/'));
+
+	gulp.src('./node_modules/jquery/dist/jquery.min.js')
+	.pipe(gulp.dest('./public/js/'));
+
+	gulp.src('./node_modules/bootstrap/dist/js/bootstrap.min.js')
+	.pipe(gulp.dest('./public/js/'));
 });

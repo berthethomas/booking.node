@@ -2,7 +2,7 @@ var MongoClient = require('mongodb').MongoClient;
 var ObjectID = require('mongodb').ObjectID;
 
 module.exports = {
-  findAll : function() {
+  findAll : function(callback) {
     MongoClient.connect('mongodb://localhost/booking', function(err, db) {
       if (err) {
         return console.log(err);
@@ -11,8 +11,7 @@ module.exports = {
       var collection = db.collection('logement');
 
       collection.find().toArray(function(err, data) {
-        //console.log(data);
-        return data;
+        callback(data);
       });
     });
   },
