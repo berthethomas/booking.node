@@ -4,8 +4,9 @@ var express  = require('express'),
 
 //affiche la map avec tout les hotels
 router.get('/', function(req, res, next) {
+	var session = req.session;
 	Logement.findAll(function(logements){
-		res.render('index', {logements:logements});
+		res.render('index', {logements:logements, session:session.auth});
 	});
 })
 //affiche le formulaire
@@ -58,11 +59,11 @@ router.get('/add', function(req, res, next) {
 		attributes.tarif = req.body.prix;
 	}
 
-	if (attributes.titre && 
-		attributes.adresse && 
-		attributes.cp && 
-		attributes.ville && 
-		attributes.tarif && 
+	if (attributes.titre &&
+		attributes.adresse &&
+		attributes.cp &&
+		attributes.ville &&
+		attributes.tarif &&
 		attributes.email) {
 
 		logement = new Logement();
@@ -71,6 +72,7 @@ router.get('/add', function(req, res, next) {
 		logement.save();
 
 		res.redirect('/logement/add');
+
 	} else {
 		res.redirect('/logement/add?error=true');
 	}

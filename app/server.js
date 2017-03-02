@@ -27,14 +27,29 @@ app.use(session({
     cookie: { maxAge: 60000 },
     saveUninitialized: true,
     resave: 'true',
-    secret: 'secret'
+    secret: 'secret',
+	user: {}
 }));
 app.use(flash());
 
 //routes
+app.all('*',function(req, res, next){
+	var session = req.session;
+
+	if(session.auth || /^\/static/.test(req.url) || req.url == '/' ||  req.url == '/register' || req.url == '/check') {
+		next();
+    } else {
+        res.redirect('/')
+    }
+});
 app.use('/', authenticate)
 .use('/register', register)
-.use('/logement', logement);
+.use('/logement', logement)
+.use('/logout', function (req, res, next) {
+	req.session.destroy();
+	res.redirect('/');
+});
+
 
 
 
