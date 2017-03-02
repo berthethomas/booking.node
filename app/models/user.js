@@ -8,7 +8,7 @@ function User() {
 };
 User.prototype = {
 
-    login: function()
+    login: function(callback)
 	{
 		var user = this;
 
@@ -18,18 +18,24 @@ User.prototype = {
                 return console.log(err);
             }
 
-            var user = db.collection('users');
+            var users = db.collection('users');
 
-            user.findOne({email:user.email, password:user.password}, function(err, item) {
-                if(err) {
-                    return false;
-                }
+            users.findOne({email:user.email, password:user.password}, function(err, item) {
+				var response = {success: false, user: {}}
 
-				console.log(item);
-                user.name      = item.name;
-				user.firstname = item.firstname;
+                if (! err) {
+					response.success = true;
 
-				return true;
+					if (item) {
+						console.log(item);
+						user.name      = item.name;
+						user.firstname = item.firstname;
+
+						response.user = user;
+					}
+				}
+
+				callback(response);
             });
 
         });
@@ -48,7 +54,7 @@ User.prototype = {
 
 			collection.insert(user, {w : 1}, function(err, result) {});
         });
-	}
+	},
 };
 
 module.exports = User;
