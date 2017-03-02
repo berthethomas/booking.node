@@ -1,5 +1,6 @@
 var MongoClient = require('mongodb').MongoClient,
-	ObjectID    = require('mongodb').ObjectID;
+	ObjectID    = require('mongodb').ObjectID,
+	_		    = require('underscore');
 
 //Attributes
 function User() {
@@ -20,7 +21,7 @@ User.prototype = {
 			}
 		}
 	},
-	save: function() 
+	save: function(callback) 
 	{
 		var object = this;
 
@@ -33,9 +34,21 @@ User.prototype = {
 			var collection = db.collection('users');
 
 			if (! object._id) {
-				collection.insert(object, {w : 1}, function(err, result) {});
+				collection.insert(object, {w : 1}, function(err, result) {
+					object.init(result.ops[0]);
+
+					if (_.isFunction(callback)) {
+						callback(object, err);
+					}
+				});
 			} else {
-				collection.save(object, {w : 1}, function(err, result) {});
+				collection.save(object, {w : 1}, function(err, result) {
+					object.init(result.ops);
+
+					if (_.isFunction(callback)) {
+						callback(object, err);
+					}
+				});
 			}
         });
 	},

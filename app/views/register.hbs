@@ -2,14 +2,14 @@
 	<div class="row main">
 		<div class="main-login main-center">
 		<h5>Sign up to reserv an room</h5>
-			<form class="" method="post" action="/register/save">
+			<form class="" method="post" action="{{action}}">
 				
 				<div class="form-group">
 					<label for="name" class="cols-sm-2 control-label">Your Name</label>
 					<div class="cols-sm-10">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-							<input type="text" class="form-control" name="name" id="name"  placeholder="Enter your Name"/>
+							<input type="text" class="form-control" name="name" id="name" value="{{user.name}}" placeholder="Enter your Name"/>
 						</div>
 					</div>
 				</div>
@@ -19,7 +19,7 @@
 					<div class="cols-sm-10">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-							<input type="text" class="form-control" name="firstname" id="firstname"  placeholder="Enter your Firstname"/>
+							<input type="text" class="form-control" name="firstname" id="firstname" value="{{user.firstname}}" placeholder="Enter your Firstname"/>
 						</div>
 					</div>
 				</div>
@@ -29,7 +29,7 @@
 					<div class="cols-sm-10">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-							<input type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email"/>
+							<input type="text" class="form-control" name="email" id="email" value="{{user.email}}" placeholder="Enter your Email"/>
 						</div>
 					</div>
 				</div>
@@ -39,7 +39,7 @@
 					<div class="cols-sm-10">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-							<input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password"/>
+							<input type="password" class="form-control" name="password" id="password" placeholder="Enter your Password"/>
 						</div>
 					</div>
 				</div>

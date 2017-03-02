@@ -36,7 +36,7 @@ app.use(flash());
 app.all('*',function(req, res, next){
 	var session = req.session;
 
-	if(session.auth || /^\/assets/.test(req.url) || req.url == '/' ||  req.url == '/register' || req.url == '/check') {
+	if(session.auth || /^\/static/.test(req.url) || req.url == '/'  || req.url == '/register' ||  req.url == '/register/save' || req.url == '/check') {
 		next();
     } else {
         res.redirect('/')
@@ -45,6 +45,7 @@ app.all('*',function(req, res, next){
 app.use('/', authenticate)
 .use('/register', register)
 .use('/logement', logement)
+.use('/profil', logement)
 .use('/logout', function (req, res, next) {
 	req.session.destroy();
 	res.redirect('/');
