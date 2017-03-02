@@ -85,6 +85,7 @@ Logement.findById = function(id, callback)
 		if (err) {
 			return console.log(err);
 		}
+		console.log(id);
 
 		var collection = db.collection('logement'),
 			obj_id = new ObjectID.createFromHexString(id);
@@ -99,4 +100,3 @@ Logement.findById = function(id, callback)
 };
 
 module.exports = Logement;
-
