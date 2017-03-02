@@ -8,12 +8,10 @@ router.get('/', function(req, res, next) {
 	res.render('login', {title: 'Se connecter'});
 });
 router.post('/check', function(req, res, next) {
-	var user = new User();
+	var email = req.body.email,
+		password = req.body.password;
 
-	user.email = req.body.email;
-	user.password = req.body.password;
-
-	var checkLogin = user.login(function (user, err) {
+	User.login(email, password, function (user, err) {
 		if (! err) {
 			if (user instanceof User) {
                 req.flash('success', 'Bienvenue, vous êtes connecté');

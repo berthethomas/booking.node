@@ -1,5 +1,7 @@
-var MongoClient = require('mongodb').MongoClient;
+var MongoClient = require('mongodb').MongoClient,
+	ObjectID    = require('mongodb').ObjectID;
 
+//Attributes
 function User() {
 	this._id       = null;
 	this.name      = null;
@@ -8,6 +10,7 @@ function User() {
 	this.password  = null;
 	this.admin     = false;
 };
+//Non-statics methods
 User.prototype = {
 	init: function (obj)
 	{
@@ -17,7 +20,7 @@ User.prototype = {
 			}
 		}
 	},
-    login: function(callback)
+	save: function() 
 	{
 		var object = this;
 
@@ -27,37 +30,54 @@ User.prototype = {
                 return console.log(err);
             }
 
-            var users = db.collection('users');
+			var collection = db.collection('users');
 
-            users.findOne({email:object.email, password:object.password}, function(err, item) {
-				var user = {}
-
-                if (! err && item) {
-
-					object.init(item);	
-					user = object;
-				}
-
-				callback(user, err);
-            });
-
+			if (! object._id) {
+				collection.insert(object, {w : 1}, function(err, result) {});
+			} else {
+				collection.save(object, {w : 1}, function(err, result) {});
+			}
         });
-    },
-	save: function() 
+	},
+	remove: function()
 	{
-		var user = this;
+		var object = this;
 
-        MongoClient.connect('mongodb://localhost/booking', function(err, db) {
-
-            if (err) {
-                return console.log(err);
-            }
+		MongoClient.connect('mongodb://localhost/booking', function(err, db) {
+			if (err) {
+				return console.log(err);
+			}
 
 			var collection = db.collection('users');
 
-			collection.insert(user, {w : 1}, function(err, result) {});
-        });
+			collection.remove({ _id : object._id }, {w : 1}, function(err, result) {});
+		});
 	},
+};
+//Statics methods
+User.login = function(email, password, callback)
+{
+	MongoClient.connect('mongodb://localhost/booking', function(err, db) {
+
+		if (err) {
+			return console.log(err);
+		}
+
+		var users = db.collection('users');
+
+		users.findOne({email:email, password:password}, function(err, item) {
+			var user = {}
+
+			if (! err && item) {
+
+				user = new User();
+				user.init(item);
+			}
+
+			callback(user, err);
+		});
+
+	});
 };
 
 module.exports = User;
