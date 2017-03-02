@@ -29,14 +29,12 @@ User.prototype = {
 
             var users = db.collection('users');
 
-            users.findOne({email:user.email, password:user.password}, function(err, item) {
+            users.findOne({email:object.email, password:object.password}, function(err, item) {
 				var user = {}
 
                 if (! err && item) {
 
-					object.name      = item.name;
-					object.firstname = item.firstname;
-
+					object.init(item);	
 					user = object;
 				}
 

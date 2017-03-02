@@ -2,28 +2,29 @@ var express = require('express'),
     router  = express.Router(),
     User    = require('../models/user');
 
-var connectionMessage = '';
+
 
 router.get('/', function(req, res, next) {
-	res.render('login', {title: 'Se connecter', message: connectionMessage});
-})
+	res.render('login', {title: 'Se connecter'});
+});
 router.post('/check', function(req, res, next) {
 	var user = new User();
 
 	user.email = req.body.email;
 	user.password = req.body.password;
 
-	var checkLogin = user.login(function (response) {
-		if (response.success) {
-			if (response.user instanceof User) {
-				res.redirect('/logement');
+	var checkLogin = user.login(function (user, err) {
+		if (! err) {
+			if (user instanceof User) {
+                req.flash('success', 'Bienvenue, vous êtes connecté');
+                res.redirect('/logement');
 			} else {
-				connectionMessage = 'Vos informations de connexion ne sont pas correctes';
-				res.render('login', {title: 'Se connecter', message: connectionMessage});
+                req.flash('error', 'Credentials invalid');
+				res.redirect('/', 400, {title: 'Se connecter'});
 			}
 		} else {
-			connectionMessage = 'Une erreur est survenue, veuillez recommencer plus tard';
-			res.render('login', {title: 'Se connecter', message: connectionMessage});
+            req.flash('error', 'Impossible de contact la BDD');
+			res.redirect('/', 500, {title: 'Se connecter'});
 		}
 	});
 
