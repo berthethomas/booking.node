@@ -1,62 +1,51 @@
-<link rel="stylesheet" href="/css/index.css">
-<h1 class="">Réserver votre location d'hotel sur Booking.node <i class="fa fa-smile-o fa-3x" aria-hidden="true"></i></h1>
-<div class="tabPanel-widget">
-    <label for="tab-1" tabindex="0"></label>
-    <input id="tab-1" type="radio" name="tabs" checked="true" aria-hidden="true">
-    <h2>Google Maps</h2>
-    <div>
-      <p>Represents a generic document or application section. In this context, a section is a thematic grouping of content, typically with a header, possibly with a footer. Examples include chapters in a book, the various tabbed pages in a tabbed dialog box, or the numbered sections of a thesis. A web site's home page could be split into sections for an introduction, news items, contact information.</p>
-      <div id='map' style="height: 380px;">
-      </div>
+<div class="container">
+    <div class="page-header">
+        <h1>Réserver votre location d'hotel sur Booking.node <i class="fa fa-smile-o fa-3x" aria-hidden="true"></i></h1>
     </div>
-  <label for="tab-2" tabindex="0"></label>
-    <input id="tab-2" type="radio" name="tabs" aria-hidden="true">
-  <h2>Vue tableau</h2>
-  <div>
-    <p>Represents strong importance for its contents. Indicate relative importance by nesting strong elements; each strong element increases the importance of its contents. Changing the importance of a piece of text with the strong element does not change the meaning of the sentence.</p>
-    <table class="table tablesorter">
-      <thead>
-          <th></th>
-          <th>Titre</th>
-          <th>Adresse</th>
-          <th>Ville</th>
-          <th>Tarif</th>
-          <th>Options</th>
-      </thead>
-      <tbody>
-        {{#each logements}}
-        <tr>
-            <td><!--<img src="/public/img/{{image}}" title="{{titre}}" alt="{{titre}}"/>--></td>
-            <td>{{titre}}</td>
-            <td>{{adresse}}</td>
-            <td>{{ville}}</td>
-            <td>{{tarif}} €</td>
-            <td>
-              <a class="btn btn-default" href="/logement/info/{{_id}}">
-                  Voir
-              </a>
+    <div class="row">
+    	<div class="col-md-12">
+            <table class="table tablesorter">
+              <thead>
+                  <th></th>
+                  <th>Titre</th>
+                  <th>Adresse</th>
+                  <th>Ville</th>
+                  <th>Tarif</th>
+                  <th>Options</th>
+              </thead>
+              <tbody>
+                {{#each logements}}
+                <tr>
+                    <td><!--<img src="/public/img/{{image}}" title="{{titre}}" alt="{{titre}}"/>--></td>
+                    <td>{{titre}}</td>
+                    <td>{{adresse}}</td>
+                    <td>{{ville}}</td>
+                    <td>{{tarif}} €</td>
+                    <td>
+                      <a class="btn btn-default" href="/logement/info/{{_id}}">
+                          Voir
+                      </a>
 
-              <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="option{{_id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                  Options
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="option{{_id}}">
-                  <li><a href="/logement/update/{{_id}}">Modifier</a></li>
-                  <li><a href="/logement/delete/{{_id}}">Supprimer</a></li>
-                  <li><a href="/logement/info/{{_id}}">Afficher</a></li>
-                </ul>
-              </div>
-          </td>
-        </tr>
-      {{/each}}
-      </tbody>
-    </table>
-  </div>
+                      <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="option{{_id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                          Options
+                          <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="option{{_id}}">
+                          <li><a href="/logement/update/{{_id}}">Modifier</a></li>
+                          <li><a href="/logement/delete/{{_id}}">Supprimer</a></li>
+                          <li><a href="/logement/info/{{_id}}">Afficher</a></li>
+                        </ul>
+                      </div>
+                  </td>
+                </tr>
+              {{/each}}
+              </tbody>
+            </table>
+        </div>
+	</div>
 </div>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWlyWQJbbr1CKhODngQif59P3oMt7zlPQ&v=3.exp&sensor=false"></script>
-<script src="/js/map.js"></script>
 
 <script>
 $(document).ready(function() {
@@ -76,7 +65,5 @@ $(document).ready(function() {
 
     }
   });
-
-  initialize("Le Mans", "Paris");
 });
 </script>

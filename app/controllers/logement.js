@@ -3,6 +3,11 @@ var express  = require('express'),
 	Logement = require('../models/logement');
 
 //affiche la map avec tout les hotels
+router.get('/map', function(req, res, next) {
+	Logement.findAll(function(logements){
+		res.render('map', {logements:logements});
+	});
+})
 router.get('/', function(req, res, next) {
 	var session = req.session;
 	Logement.findAll(function(logements){

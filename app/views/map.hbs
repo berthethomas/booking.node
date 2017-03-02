@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="page-header">
+        <h1>Réserver votre location d'hotel sur Booking.node <i class="fa fa-smile-o fa-3x" aria-hidden="true"></i></h1>
+    </div>
+    <div class="row">
+    	<div class="col-md-12">
+            <div id='map' style="height: 380px;">
+            </div>
+        </div>
+	</div>
+</div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWlyWQJbbr1CKhODngQif59P3oMt7zlPQ&v=3.exp&sensor=false"></script>
+<script>
+$(document).ready(function() {
+    initialize();
+});
+
+var geocoder;
+var map;
+    function initialize() {
+        geocoder = new google.maps.Geocoder();
+        var latlng = new google.maps.LatLng(-34.397, 150.644);
+        var mapOptions = {
+             zoom: 8,
+             center: latlng,
+             mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+        {{#each logements}}
+            codeAddress("{{adresse}} {{cp}} {{ville}}");
+        {{/each}}
+    }
+
+    function codeAddress(address) {
+            geocoder.geocode( { 'address': address}, function(results, status) {
+                 if (status == google.maps.GeocoderStatus.OK) {
+                   map.setCenter(results[0].geometry.location);
+                   var marker = new google.maps.Marker({
+                       map: map,
+                       position: results[0].geometry.location
+                   });
+                 } else {
+                   alert('Geocode was not successful for the following reason: ' + status);
+                 }
+            });
+    }
+</script>
