@@ -24,6 +24,13 @@
         <a href="#" class="close">X</a>
         <p class="text-center"> {{messages.error}}</p>
     </div>
+    <script>
+        $(document).ready(function() {
+            $('.close').on('click', function() {
+                $('#flash').remove();
+            });
+        });
+    </script>
 {{/if}}
 
 {{#if messages.success}}
@@ -31,6 +38,13 @@
         <a href="#" class="close">X</a>
         <p class="text-center"> {{messages.success}}</p>
     </div>
+    <script>
+        $(document).ready(function() {
+            $('.close').on('click', function() {
+                $('#flash').remove();
+            });
+        });
+    </script>
 {{/if}}
 
 {{#if session }}

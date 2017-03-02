@@ -1,112 +1,64 @@
-<div class="container">
-    <div class="page-header">
-        <h1>Réserver votre location d'hotel sur Booking.node <i class="fa fa-smile-o fa-3x" aria-hidden="true"></i></h1>
+<link rel="stylesheet" href="/css/index.css">
+<h1 class="">Réserver votre location d'hotel sur Booking.node <i class="fa fa-smile-o fa-3x" aria-hidden="true"></i></h1>
+<div class="tabPanel-widget">
+    <label for="tab-1" tabindex="0"></label>
+    <input id="tab-1" type="radio" name="tabs" checked="true" aria-hidden="true">
+    <h2>Google Maps</h2>
+    <div>
+      <p>Represents a generic document or application section. In this context, a section is a thematic grouping of content, typically with a header, possibly with a footer. Examples include chapters in a book, the various tabbed pages in a tabbed dialog box, or the numbered sections of a thesis. A web site's home page could be split into sections for an introduction, news items, contact information.</p>
+      <div id='map' style="height: 380px;">
+      </div>
     </div>
-    <div class="row">
-    	<div class="col-md-12">
-            <div class="panel with-nav-tabs panel-default">
-                <div class="panel-heading">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a href="#tableView" data-toggle="tab">Vue tableau</a></li>
-                            <li><a href="#googleView" data-toggle="tab">Google Maps</a></li>
-                        </ul>
-                </div>
-                <div class="panel-body">
-                    <a class="btn btn-success" href="/logement/add">
-                        <i class="fa fa-plus-circle" aria-hidden="true"></i> Ajouter
-                    </a>
-                    <br><br>
-                    <div class="tab-content">
-                        <div class="tab-pane fade in active" id="tableView">
-                          <table class="table tablesorter">
-                            <thead>
-                                <th></th>
-                              <th>Titre</th>
-                              <th>Adresse</th>
-                              <th>Ville</th>
-                              <th>Tarif</th>
-                              <th>Options</th>
-                            </thead>
-                            <tbody>
-                              {{#each logements}}
-                              <tr>
-                                  <td><!--<img src="/public/img/{{image}}" title="{{titre}}" alt="{{titre}}"/>--></td>
-                                <td>{{titre}}</td>
-                                <td>{{adresse}}</td>
-                                <td>{{ville}}</td>
-                                <td>{{tarif}} €</td>
-                                <td>
-                                    <a class="btn btn-default" href="/logement/info/{{_id}}">
-                                        Voir
-                                    </a>
+  <label for="tab-2" tabindex="0"></label>
+    <input id="tab-2" type="radio" name="tabs" aria-hidden="true">
+  <h2>Vue tableau</h2>
+  <div>
+    <p>Represents strong importance for its contents. Indicate relative importance by nesting strong elements; each strong element increases the importance of its contents. Changing the importance of a piece of text with the strong element does not change the meaning of the sentence.</p>
+    <table class="table tablesorter">
+      <thead>
+          <th></th>
+          <th>Titre</th>
+          <th>Adresse</th>
+          <th>Ville</th>
+          <th>Tarif</th>
+          <th>Options</th>
+      </thead>
+      <tbody>
+        {{#each logements}}
+        <tr>
+            <td><!--<img src="/public/img/{{image}}" title="{{titre}}" alt="{{titre}}"/>--></td>
+            <td>{{titre}}</td>
+            <td>{{adresse}}</td>
+            <td>{{ville}}</td>
+            <td>{{tarif}} €</td>
+            <td>
+              <a class="btn btn-default" href="/logement/info/{{_id}}">
+                  Voir
+              </a>
 
-                                    <div class="dropdown">
-                                      <button class="btn btn-default dropdown-toggle" type="button" id="option{{_id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                        Options
-                                        <span class="caret"></span>
-                                      </button>
-                                      <ul class="dropdown-menu" aria-labelledby="option{{_id}}">
-                                        <li><a href="/logement/update/{{_id}}">Modifier</a></li>
-                                        <li><a href="/logement/delete/{{_id}}">Supprimer</a></li>
-                                        <li><a href="/logement/info/{{_id}}">Afficher</a></li>
-                                      </ul>
-                                    </div>
-                                </td>
-                              </tr>
-                            {{/each}}
-                            </tbody>
-                          </table>
-                    </div>
-                        <div class="tab-pane fade" id="googleView">
-                            hello
-                            <div id="map" style="width:400px;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-	</div>
+              <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="option{{_id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                  Options
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="option{{_id}}">
+                  <li><a href="/logement/update/{{_id}}">Modifier</a></li>
+                  <li><a href="/logement/delete/{{_id}}">Supprimer</a></li>
+                  <li><a href="/logement/info/{{_id}}">Afficher</a></li>
+                </ul>
+              </div>
+          </td>
+        </tr>
+      {{/each}}
+      </tbody>
+    </table>
+  </div>
 </div>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWlyWQJbbr1CKhODngQif59P3oMt7zlPQ"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWlyWQJbbr1CKhODngQif59P3oMt7zlPQ&v=3.exp&sensor=false"></script>
+<script src="/js/map.js"></script>
+
 <script>
-var directionsDisplay;
-var directionsService = new google.maps.DirectionsService();
-var map;
-
-function initialize(dep, arr) {
-    directionsDisplay = new google.maps.DirectionsRenderer();
-    var paris = new google.maps.LatLng(48.8534100, 2.3488000);
-    var mapOptions = {
-        zoom: 5,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        center: paris
-    }
-    map = new google.maps.Map(document.getElementById("map"), mapOptions);
-    directionsDisplay.setMap(map);
-
-    calcRoute1(dep, arr);
-}
-
-function calcRoute1(dep, arr) {
-    var start = dep;
-    var end = arr;
-
-
-    var request = {
-        origin: start,
-        destination: end,
-        provideRouteAlternatives: true,
-        travelMode: google.maps.TravelMode.DRIVING
-    };
-    directionsService.route(request, function (result, status, distance) {
-        if (status == google.maps.DirectionsStatus.OK) {
-            directionsDisplay.setDirections(result);
-
-        }
-    });
-}
-
 $(document).ready(function() {
   $('.tablesorter').tablesorter({
     theme: "bootstrap",
@@ -125,6 +77,6 @@ $(document).ready(function() {
     }
   });
 
-  initialize("LE MANS", 'PARIS');
+  initialize("Le Mans", "Paris");
 });
 </script>
