@@ -28,8 +28,12 @@ var map;
         }
         map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
+        var time = 0;
         {{#each logements}}
-            codeAddress("{{adresse}} {{cp}} {{ville}}", "{{_id}}", "{{titre}}", "{{description}}");
+            setTimeout(function() {
+                codeAddress("{{addresse}} {{cp}} {{ville}}", "{{_id}}", "{{titre}}", "{{description}}");
+            }, time);
+            time = time + 600;
         {{/each}}
     }
 

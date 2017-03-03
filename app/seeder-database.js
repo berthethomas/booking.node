@@ -105,7 +105,3 @@ MongoClient.connect('mongodb://localhost/booking', function(err, db) {
     }
 
 });
-
-
-
-
