@@ -28,7 +28,7 @@ $(document).ready(function(){
 
               <h5 class="hidden alert-danger" id="errorLog">Veuillez remplir tout les champs obligatoires ! </h5>
 
-            <form id="addLogement" class="" method="post" action="{{action}}">
+            <form id="addLogement" class="" method="post" action="{{action}}" enctype="multipart/form-data">
 
                 <div class="form-group">
                     <label for="title" class="cols-sm-2 control-label">Titre *</label>
@@ -52,7 +52,7 @@ $(document).ready(function(){
 
                 <div class="form-group">
                   <label for="exampleInputFile">Ajouter une photo</label>
-                  <input type="file" class="form-control" id="image" aria-describedby="fileHelp">
+                  <input type="file" class="form-control" id="image" name="image" aria-describedby="fileHelp">
                 </div>
 
                 <div class="form-group">

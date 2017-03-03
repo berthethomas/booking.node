@@ -1,6 +1,21 @@
 var express  = require('express'),
 	router   = express.Router(),
-	Logement = require('../models/logement');
+	Logement = require('../models/logement'),
+	multer  = require('multer'),
+  //upload = multer({ dest: '/public/upload/' }),
+	fs = require('fs-extra'),
+	path = require('path');
+
+
+	var storage = multer.diskStorage({
+	  destination: function (request, file, callback) {
+	    callback(null, '../public/upload');
+	  },
+	  filename: function (request, file, callback) {
+	    callback(null, file.originalname)
+	  }
+	});
+
 
 //affiche la map avec tout les hotels
 router.get('/map', function(req, res, next) {
@@ -23,7 +38,10 @@ router.get('/add', function(req, res, next) {
 	res.render('formLogement', {title: 'Ajouter un logement', action: '/logement/add/save', session:session});
 })
 //enregistre les données
-.post('/add/save', function(req, res, next) {
+.post('/add/save',multer({storage: storage}).single('image'), function(req, res, next) {
+
+var upload = multer({storage: storage}).single('image');
+console.log(req.body);
 
 	var attributes = {
 		titre       : null,
@@ -36,16 +54,12 @@ router.get('/add', function(req, res, next) {
 		tarif       : null
 	};
 
-	if (req.body.title && req.body.title.length > 5){
+	//if (req.body.title && req.body.title.length > 5){
 		attributes.titre = req.body.title;
-	}
+	//}
 
 	if (req.body.description && req.body.description.length > 5){
 		attributes.description = req.body.description;
-	}
-
-	if (req.body.image && req.body.image.length > 5){
-		attributes.image = req.body.image;
 	}
 
 	if (req.body.email && req.body.email.length > 5){
@@ -68,6 +82,9 @@ router.get('/add', function(req, res, next) {
 		attributes.tarif = req.body.prix;
 	}
 
+	attributes.image = req.file;
+
+
 	if (attributes.titre &&
 		attributes.adresse &&
 		attributes.cp &&
@@ -77,6 +94,16 @@ router.get('/add', function(req, res, next) {
 
 		logement = new Logement();
 		logement.init(attributes);
+
+		upload(req, res, function(err) {
+	  if(err) {
+	    console.log('Error Occured');
+	    return;
+	  }
+	  //console.log(req.file);
+	  res.end('Your File Uploaded');
+	  console.log('Photo Uploaded');
+	  })
 
 		logement.save();
 
