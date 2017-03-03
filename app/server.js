@@ -24,11 +24,12 @@ app.set('view engine', 'hbs');
 //Flash message
 app.use(cookieParser('secret'));
 app.use(session({
-    cookie: { maxAge: 60000 },
+    cookie: { maxAge: 6000000000, expires: false },
     saveUninitialized: true,
     resave: 'true',
     secret: 'secret',
-	user: {}
+	user: {},
+
 }));
 app.use(flash());
 
