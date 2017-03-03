@@ -1,10 +1,9 @@
 var express  = require('express'),
 	router   = express.Router(),
 	Logement = require('../models/logement'),
-	multer  = require('multer'),
-  //upload = multer({ dest: '/public/upload/' }),
-	fs = require('fs-extra'),
-	path = require('path');
+	multer   = require('multer'),
+	fs       = require('fs-extra'),
+	path     = require('path');
 
 
 	var storage = multer.diskStorage({
@@ -41,7 +40,6 @@ router.get('/add', function(req, res, next) {
 .post('/add/save',multer({storage: storage}).single('image'), function(req, res, next) {
 
 var upload = multer({storage: storage}).single('image');
-console.log(req.body);
 
 	var attributes = {
 		titre       : null,
@@ -100,9 +98,7 @@ console.log(req.body);
 	    console.log('Error Occured');
 	    return;
 	  }
-	  //console.log(req.file);
 	  res.end('Your File Uploaded');
-	  console.log('Photo Uploaded');
 	  })
 
 		logement.save();

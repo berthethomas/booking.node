@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 
-var express  = require('express'),
-	path	 = require('path'),
-	flash = require('express-flash'),
+var express      = require('express'),
+	path         = require('path'),
+	flash        = require('express-flash'),
 	cookieParser = require('cookie-parser'),
-	session = require('express-session'),
+	session      = require('express-session');
+
 //controllers
 var register     = require('./controllers/register'),
 	logement     = require('./controllers/logement'),
