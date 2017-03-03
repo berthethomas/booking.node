@@ -10,7 +10,8 @@ MongoClient.connect('mongodb://localhost/booking', function(err, db) {
     db.createCollection('reservations');
 
     var users = [
-        {name: 'Booking', password: "secret", email: 'booking@example.fr', firstname: 'Booking', password: 'secret', admin: true},
+        {name: 'Booking', password: "secret", email: 'booking@example.fr', firstname: 'Booking', admin: true},
+        {name: 'LE ROUX', password: "abcd", email: 'leroux.tanguy.51@gmail.com', firstname: 'Tanguy'},
         {name: "Clay Donaldson", password: "secret", email: "claydonaldson@zillacon.com", firstname: "Charlotte"},
         {name: "Jenny Noble", password: "secret", email: "jennynoble@zillacon.com", firstname: "Anderson"},
         {name: "Gould Avila", password: "secret", email: "gouldavila@zillacon.com", firstname: "Weeks"},

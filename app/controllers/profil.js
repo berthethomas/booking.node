@@ -3,11 +3,15 @@ var express  = require('express'),
 	User     = require('../models/user');
 
 router.get('/:id', function(req, res, next){
+	var session = req.session;
+
 	User.findById(req.params.id, function(user){
-		res.render('register', {title: 'Modification de votre profil', user: user, isEditing: true, action: '/profil/save'});
+		res.render('register', {title: 'Modification de votre profil', user: user, isEditing: true, action: '/profil/save', session:session});
 	})
 })
 .post('/save', function(req, res, next) {
+	var session = req.session;
+
 	if (req.body.id) {
 		User.findById(req.body.id, function(user){
 			var error      = false;
@@ -50,17 +54,17 @@ router.get('/:id', function(req, res, next){
 						res.redirect('/');
 					} else {
 						req.flash('error', 'Une erreur est survenue, veuillez contacter sur support');
-						res.render('register', {title: 'S\'inscrire', user:user, isEditing: true, action: '/profil/save'});
+						res.render('register', {title: 'S\'inscrire', user:user, isEditing: true, action: '/profil/save', session:session});
 					}
 				}); 
 			} else {
 				req.flash('error', message);
-				res.render('register', {title: 'S\'inscrire', user:user, isEditing: true, action: '/profil/save'});
+				res.render('register', {title: 'S\'inscrire', user:user, isEditing: true, action: '/profil/save', session:session});
 			}
 		});
 	} else {
 		req.flash('error', 'Une erreur est survenue, veuillez contacter sur support');
-		res.render('register', {title: 'S\'inscrire', user:user, isEditing: true, action: '/profil/save'});
+		res.render('register', {title: 'S\'inscrire', user:user, isEditing: true, action: '/profil/save', session:session});
 	}
 });
 
