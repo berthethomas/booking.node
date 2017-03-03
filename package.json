@@ -26,6 +26,7 @@
     "express-flash": "0.0.2",
     "express-session": "^1.15.1",
     "font-awesome": "^4.7.0",
+    "fs-extra": "^2.0.0",
     "gulp": "^3.9.1",
     "hbs": "^4.0.1",
     "html": "^1.0.0",
