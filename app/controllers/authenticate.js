@@ -5,7 +5,8 @@ var express = require('express'),
 
 
 router.get('/', function(req, res, next) {
-	res.render('login', {title: 'Se connecter'});
+	var session = req.session;
+	res.render('login', {title: 'Se connecter', session:session});
 });
 router.post('/check', function(req, res, next) {
 	var email = req.body.email,

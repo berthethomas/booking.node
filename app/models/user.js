@@ -92,6 +92,24 @@ User.login = function(email, password, callback)
 
 	});
 };
+User.findById = function(id, callback)
+{
+	MongoClient.connect('mongodb://localhost/booking', function(err, db) {
+		if (err) {
+			return console.log(err);
+		}
+
+		var collection = db.collection('users'),
+			obj_id = new ObjectID.createFromHexString(id);
+
+		collection.findOne({_id:obj_id}, function(err, item) {
+			var user = new User();
+			user.init(item);
+
+			callback(user);
+		});
+	});
+};
 
 module.exports = User;
 

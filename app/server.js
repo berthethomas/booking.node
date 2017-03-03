@@ -6,10 +6,10 @@ var express  = require('express'),
 	cookieParser = require('cookie-parser'),
 	session = require('express-session');
 //controllers
-var login    = require('./controllers/login'),
-	register = require('./controllers/register'),
-	logement = require('./controllers/logement'),
-	authenticate = require('./controllers/authenticate');
+var register     = require('./controllers/register'),
+	logement     = require('./controllers/logement'),
+	authenticate = require('./controllers/authenticate'),
+	profil       = require('./controllers/profil');
 
 //application
 var	app = express();
@@ -36,7 +36,7 @@ app.use(flash());
 app.all('*',function(req, res, next){
 	var session = req.session;
 
-	if(session.auth || /^\/static/.test(req.url) || req.url == '/'  || req.url == '/register' ||  req.url == '/register/save' || req.url == '/check') {
+	if(session.auth || /^\/assets/.test(req.url) || req.url == '/'  || req.url == '/register' ||  req.url == '/register/save' || req.url == '/check') {
 		next();
     } else {
         res.redirect('/')
@@ -45,7 +45,7 @@ app.all('*',function(req, res, next){
 app.use('/', authenticate)
 .use('/register', register)
 .use('/logement', logement)
-.use('/profil', logement)
+.use('/profil', profil)
 .use('/logout', function (req, res, next) {
 	req.session.destroy();
 	res.redirect('/');
