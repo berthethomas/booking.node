@@ -20,7 +20,7 @@
               <tbody>
                 {{#each logements}}
                 <tr>
-                    <td><!--<img src="/public/img/{{image}}" title="{{titre}}" alt="{{titre}}"/>--></td>
+                    <td><img src="/upload/{{this.image.filename}}"/></td>
                     <td>{{this.titre}}</td>
                     <td>{{this.adresse}}</td>
                     <td>{{this.ville}}</td>

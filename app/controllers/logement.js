@@ -27,6 +27,7 @@ router.get('/', function(req, res, next) {
 	var session = req.session;
 
 	Logement.findAll(function(logements){
+		console.log(logements);
 		var user = session.user;
 		res.render('index', {title: "Accueil", logements:logements, user:user, session:session});
 	});
@@ -125,7 +126,9 @@ var upload = multer({storage: storage}).single('image');
 	})
 })
 
-.post('/update/save', function(req, res, next) {
+.post('/update/save',multer({storage: storage}).single('image'), function(req, res, next) {
+
+var upload = multer({storage: storage}).single('image');
 
 	Logement.findById(req.body.id, function(logement){
 		if (req.body.title && req.body.title.length > 5){
@@ -160,12 +163,24 @@ var upload = multer({storage: storage}).single('image');
 			logement.tarif = req.body.prix;
 		}
 
+
+		logement.image = req.file;
+
+
 		if (logement.titre &&
 			logement.adresse &&
 			logement.cp &&
 			logement.ville &&
 			logement.tarif &&
 			logement.email) {
+
+				upload(req, res, function(err) {
+			  if(err) {
+			    console.log('Error Occured');
+			    return;
+			  }
+			  res.end('Your File Uploaded');
+			  })
 
 			logement.save();
 
