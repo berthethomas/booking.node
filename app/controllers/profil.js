@@ -4,48 +4,63 @@ var express  = require('express'),
 
 router.get('/:id', function(req, res, next){
 	User.findById(req.params.id, function(user){
-		res.render('register', {title: 'Modification de votre profil', user:user, action: '/profil/save'});
+		res.render('register', {title: 'Modification de votre profil', user: user, isEditing: true, action: '/profil/save'});
 	})
 })
 .post('/save', function(req, res, next) {
 	if (req.body.id) {
 		User.findById(req.body.id, function(user){
+			var error      = false;
+			var message    = '';
 			var attributes = {
 					name      : req.body.name,
 					firstname : req.body.firstname,
 					email     : req.body.email,
-					password  : req.body.password,
 				};
+
+				
+			switch(true) {
+				case (user.password != req.body.password):
+					error   = true;
+					message = 'Le mot de passe saisi n\'est pas correcte';
+
+					break;
+				case (! req.body.name || ! req.body.firstname || ! req.body.email):
+					error   = true;
+					message = 'Certains champs obligatoires n\'ont pas été renseignés';
+
+					break;
+				case (req.body.newPassword && req.body.newPassword.length > 1 && req.body.newPassword != req.body.confirm):
+					error   = true;
+					message = 'Le nouveau mot de passe et la confirmation ne correspondent pas';
+
+					break;
+			} 
+
+			if (req.body.newPassword && req.body.newPassword.length > 1 && req.body.newPassword == req.body.confirm) {
+				attributes.password = req.body.newPassword;
+			}
 
 			user.init(attributes);
 
-			if (req.body.name &&
-				req.body.firstname &&
-				req.body.email &&
-				req.body.password) {
-
-				if (attributes.password == req.body.confirm) {
-					user.save(function(savedUser, err) {
-						if (! err) {
-							req.flash('success', 'Vous vous êtes bien enregistré');
-							res.redirect('/');
-						} else {
-							req.flash('error', 'Une erreur est survenue, veuillez contacter sur support');
-							res.render('register', {title: 'S\'inscrire', user:user, action: '/profil/save'});
-						}
-					}); 
-				} else {
-					req.flash('error', 'vos mots de passes ne correspondent pas');
-					res.render('register', {title: 'S\'inscrire', user:user, action: '/profil/save'});
-				}
+			if (! error) {
+				user.save(function(savedUser, err) {
+					if (! err) {
+						req.flash('success', 'Votre profil à bien été mis à jour');
+						res.redirect('/');
+					} else {
+						req.flash('error', 'Une erreur est survenue, veuillez contacter sur support');
+						res.render('register', {title: 'S\'inscrire', user:user, isEditing: true, action: '/profil/save'});
+					}
+				}); 
 			} else {
-				req.flash('error', 'Certains champs obligatoires n\'ont pas été renseignés');
-				res.render('register', {title: 'S\'inscrire', user:user, action: '/profil/save'});
+				req.flash('error', message);
+				res.render('register', {title: 'S\'inscrire', user:user, isEditing: true, action: '/profil/save'});
 			}
 		});
 	} else {
 		req.flash('error', 'Une erreur est survenue, veuillez contacter sur support');
-		res.render('register', {title: 'S\'inscrire', user:user, action: '/profil/save'});
+		res.render('register', {title: 'S\'inscrire', user:user, isEditing: true, action: '/profil/save'});
 	}
 });
 

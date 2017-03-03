@@ -4,7 +4,10 @@ var express = require('express'),
 
 router.get('/', function(req, res, next) {
 	var user = new User();
-	res.render('register', {title: 'S\'inscrire', user:user, action: '/register/save'});
+	res.render('register', {title     : 'S\'inscrire',
+							user      : user,
+							isEditing : false,
+							action    : '/register/save'});
 })
 .post('/save', function(req, res, next) {
 	var user = new User(),
@@ -29,16 +32,16 @@ router.get('/', function(req, res, next) {
 					res.redirect('/');
 				} else {
 					req.flash('error', 'Une erreur est survenue, veuillez contacter sur support');
-					res.render('register', {title: 'S\'inscrire', user:user, action: '/register/save'});
+					res.render('register', {title: 'S\'inscrire', user:user, isEditing: false, action: '/register/save'});
 				}
 			}); 
 		} else {
 			req.flash('error', 'vos mots de passes ne correspondent pas');
-			res.render('register', {title: 'S\'inscrire', user:user, action: '/register/save'});
+			res.render('register', {title: 'S\'inscrire', user:user, isEditing: false, action: '/register/save'});
 		}
 	} else {
 		req.flash('error', 'Certains champs obligatoires n\'ont pas été renseignés');
-		res.render('register', {title: 'S\'inscrire', user:user, action: '/register/save'});
+		res.render('register', {title: 'S\'inscrire', user:user, isEditing: false, action: '/register/save'});
 	}
 });
 
