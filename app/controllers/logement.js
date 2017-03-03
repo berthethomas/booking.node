@@ -6,16 +6,15 @@ var express  = require('express'),
 router.get('/map', function(req, res, next) {
 	var session = req.session;
 	Logement.findAll(function(logements){
-		res.render('map', {logements:logements, session:session});
+		res.render('map', {title : "Carte", logements:logements, session:session});
 	});
 })
 router.get('/', function(req, res, next) {
 	var session = req.session;
 
 	Logement.findAll(function(logements){
-		console.log(session);
 		var user = session.user;
-		res.render('index', {logements:logements, user:user, session:session});
+		res.render('index', {title: "Accueil", logements:logements, user:user, session:session});
 	});
 })
 //affiche le formulaire
@@ -81,7 +80,7 @@ router.get('/add', function(req, res, next) {
 
 		logement.save();
 
-		res.redirect('/logement/add');
+		res.redirect('/logement');
 
 	} else {
 		res.redirect('/logement/add?error=true');
@@ -138,7 +137,6 @@ router.get('/add', function(req, res, next) {
 			logement.tarif = req.body.prix;
 		}
 
-		console.log(logement);
 		if (logement.titre &&
 			logement.adresse &&
 			logement.cp &&

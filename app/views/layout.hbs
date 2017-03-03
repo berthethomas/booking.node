@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
     <link rel="stylesheet" href="/assets/css/main.css">
     <link rel="stylesheet" href="/assets/css/theme.bootstrap.min.css">
+    <link rel="icon" href="/assets/img/favicon.ico" />
 
     <script src="/assets/js/jquery.min.js" type='text/javascript'></script>
     <script src="/assets/js/bootstrap.min.js" type='text/javascript'></script>
@@ -16,11 +17,11 @@
     <script src="/assets/js/jquery.tablesorter.widgets.js" type='text/javascript'></script>
     <script src="/assets/js/jquery.tablesorter.widget.scroller.js" type='text/javascript'></script>
 
-    <title>{{title}}</title>
+    <title>Booking.node - {{title}}</title>
 </head>
 <body>
 {{#if messages.error}}
-    <div id="flash" class="flash-notice bottom-info col-md-offset-8 col-md-4 alert alert-danger text-center" style="margin-top : 50px;">
+    <div id="flash" class="flash-notice bottom-info col-md-offset-8 col-md-4 alert alert-danger text-center">
         <a href="#" class="close">X</a>
         <p class="text-center"> {{messages.error}}</p>
     </div>
@@ -34,7 +35,7 @@
 {{/if}}
 
 {{#if messages.success}}
-    <div id="flash" class="flash-notice bottom-info col-md-offset-8 col-md-4 alert alert-success text-center" style="margin-top : 50px;">
+    <div id="flash" class="flash-notice bottom-info col-md-offset-8 col-md-4 alert alert-success text-center">
         <a href="#" class="close">X</a>
         <p class="text-center"> {{messages.success}}</p>
     </div>
@@ -56,16 +57,16 @@
                     <span class="sr-only">Toggle navigation</span>
                     <i class="icon-menu"></i> Menu
                 </button>
-                <a class="navbar-brand" href="/">Booking.node</a>
+                <a class="navbar-brand" href="/logement"><img src="/assets/img/logo.png" title="Booking.node" style="max-width:25px;float:left;"/> <span style="line-height:20px;margin-left:5px;">Booking.node</span></a>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="/logement" title="Start Bootstrap News, Guides, and Tutorials">Logements</a>
+                        <a href="/logement" title="Start Bootstrap News, Guides, and Tutorials"><i class="fa fa-home" aria-hidden="true"></i> Logements</a>
                     </li>
                     <li>
-                        <a href="/logement/map" title="Start Bootstrap News, Guides, and Tutorials">Carte</a>
+                        <a href="/logement/map" title="Start Bootstrap News, Guides, and Tutorials"><i class="fa fa-globe" aria-hidden="true"></i> Carte</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -73,10 +74,10 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Premium Bootstrap Themes &amp; Templates"><i class="icon-star"></i> Mon compte <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>
-								<a href="/profil/{{session.user._id}}"><i class="icon-handbag fa-user"></i>Mon profil</a>
+								<a href="/profil/{{session.user._id}}"><i class="icon-handbag fa fa-user"></i> Mon profil</a>
                             </li>
                             <li>
-                                <a href="/logout"><i class="icon-handbag fa-fa-sign-out"></i>Deconnexion</a>
+                                <a href="/logout"><i class="icon-handbag fa fa-sign-out"></i> Deconnexion</a>
                             </li>
                         </ul>
                     </li>
